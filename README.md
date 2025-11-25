@@ -1,6 +1,13 @@
 # Vmalert Webhook Server (Slack)
 When `Vmalert` conditions are met, this webhook queries logs from `VictoriaLogs` using `annotations.query` and sends an alert message to Slack.  
-Since `VictoriaLogs` only returns numeric values, this webhook was created to extract log details. If `VictoriaLogs` supports this in the future, it will no longer be needed.
+Since `VictoriaLogs` only returns numeric values, this webhook was created to extract log details. If `VictoriaLogs` supports this in the future, ~~it will no longer be needed.~~  
+I've made a PR to integrate this feature into `vmalert`.  
+[vmalert PR](https://github.com/VictoriaMetrics/VictoriaMetrics/pull/10070)  
+[helm chart PR](https://github.com/VictoriaMetrics/helm-charts/pull/2583)  
+Once this PR merged, you can enable it with flags  
+`-notifier.vlogs.url`, `notifier.slack.url`, `notifier.vlogs.ingress` in vmalert
+`server.notifier.webhookVlogs.enabled`,`server.notifier.webhookVlogs.vlogsURL`, `server.notifier.webhookVlogs.slackURL`, `server.notifier.webhookVlogs.ingressURL` in helm chart values.
+
 
 # Alert Configuration
 * When writing `Vmalert` alert rules, `annotations.query` **must** be specified. This query is used to fetch logs before sending alerts.  
